@@ -7,3 +7,4 @@ generate:
     - name: go
       flags: plugins=grpc
       output: ../../gen/go
+m
