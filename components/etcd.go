@@ -14,7 +14,6 @@ func Register(target, service, host, port string, ttl int64) error {
 	// 拼接host:port
 	serviceValue := net.JoinHostPort(host, port)
 	serviceKey := service
-
 	var err error
 
 	cli, err := clientv3.New(clientv3.Config{

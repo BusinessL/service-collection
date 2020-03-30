@@ -4,7 +4,7 @@ go 1.13
 
 require (
 	github.com/census-instrumentation/opencensus-proto v0.2.1 // indirect
-	github.com/coreos/etcd v3.3.19+incompatible // indirect
+	github.com/coreos/etcd v3.3.19+incompatible
 	github.com/coreos/go-semver v0.3.0 // indirect
 	github.com/coreos/go-systemd v0.0.0-00010101000000-000000000000 // indirect
 	github.com/coreos/pkg v0.0.0-20180928190104-399ea9e2e55f // indirect
@@ -14,6 +14,7 @@ require (
 	github.com/golang/protobuf v1.3.0
 	github.com/google/uuid v1.1.1 // indirect
 	github.com/prometheus/client_model v0.0.0-20190812154241-14fe0d1b01d4 // indirect
+	github.com/sirupsen/logrus v1.5.0
 	go.etcd.io/etcd v3.3.19+incompatible
 	go.uber.org/zap v1.14.1 // indirect
 	golang.org/x/exp v0.0.0-20190121172915-509febef88a4 // indirect
