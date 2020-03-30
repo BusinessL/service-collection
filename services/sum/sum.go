@@ -6,8 +6,8 @@ import (
 	"google.golang.org/grpc"
 	"net"
 	"os"
-	etcdv3 "services/go/components/register"
-	"services/proto/sum"
+	etcd "service-collection/components"
+	proto "service-collection/services/sum/proto"
 )
 
 var (
@@ -18,8 +18,8 @@ var (
 	reg  = flag.String("reg", "http://localhost:2379", "register etcd address")
 )
 
-func (s *server) GetSum(ctx context.Context, in *sum.SumRequest) (*sum.SumResponse, error) {
-	return &sum.SumResponse{Output: in.Input}, nil
+func (s *server) GetSum(ctx context.Context, in *proto.SumRequest) (*proto.SumResponse, error) {
+	return &proto.SumResponse{Output: in.Input}, nil
 }
 
 func main() {
@@ -30,7 +30,7 @@ func main() {
 		panic(err)
 	}
 
-	err = etcdv3.Register(*reg, *ser, *host, *port, 15)
+	err = etcd.Register(*reg, *ser, *host, *port, 15)
 	if err != nil {
 		panic(err)
 	}
@@ -39,17 +39,14 @@ func main() {
 
 	go func() {
 		<-ch
-		etcdv3.UnRegister()
+		etcd.UnRegister()
 		os.Exit(1)
 	}()
 
-
 	s := grpc.NewServer()
-	sum.RegisterSumServiceServer(s, &server{})
+	proto.RegisterSumServiceServer(s, &server{})
 	s.Serve(listen)
 }
 
 type server struct {
 }
-
-

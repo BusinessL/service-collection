@@ -8,8 +8,6 @@ import (
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
 	grpc "google.golang.org/grpc"
-	codes "google.golang.org/grpc/codes"
-	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -107,9 +105,7 @@ func init() {
 	proto.RegisterType((*SumResponse)(nil), "SumResponse")
 }
 
-func init() {
-	proto.RegisterFile("sum.proto", fileDescriptor_62743f9cdc99b9fd)
-}
+func init() { proto.RegisterFile("sum.proto", fileDescriptor_62743f9cdc99b9fd) }
 
 var fileDescriptor_62743f9cdc99b9fd = []byte{
 	// 126 bytes of a gzipped FileDescriptorProto
@@ -125,11 +121,11 @@ var fileDescriptor_62743f9cdc99b9fd = []byte{
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ context.Context
-var _ grpc.ClientConnInterface
+var _ grpc.ClientConn
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the grpc package it is being compiled against.
-const _ = grpc.SupportPackageIsVersion6
+const _ = grpc.SupportPackageIsVersion4
 
 // SumServiceClient is the client API for SumService service.
 //
@@ -139,10 +135,10 @@ type SumServiceClient interface {
 }
 
 type sumServiceClient struct {
-	cc grpc.ClientConnInterface
+	cc *grpc.ClientConn
 }
 
-func NewSumServiceClient(cc grpc.ClientConnInterface) SumServiceClient {
+func NewSumServiceClient(cc *grpc.ClientConn) SumServiceClient {
 	return &sumServiceClient{cc}
 }
 
@@ -158,14 +154,6 @@ func (c *sumServiceClient) GetSum(ctx context.Context, in *SumRequest, opts ...g
 // SumServiceServer is the server API for SumService service.
 type SumServiceServer interface {
 	GetSum(context.Context, *SumRequest) (*SumResponse, error)
-}
-
-// UnimplementedSumServiceServer can be embedded to have forward compatible implementations.
-type UnimplementedSumServiceServer struct {
-}
-
-func (*UnimplementedSumServiceServer) GetSum(ctx context.Context, req *SumRequest) (*SumResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetSum not implemented")
 }
 
 func RegisterSumServiceServer(s *grpc.Server, srv SumServiceServer) {
